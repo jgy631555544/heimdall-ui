@@ -36,7 +36,7 @@ const columns: ColumnsType<DataType> = [
     render: (text) => <div>{text}</div>,
   },
   {
-    title: "Action",
+    title: "操作",
     key: "action",
     render: () => (
       <Link href="/network">
@@ -81,7 +81,7 @@ const data: DataType[] = [
   },
 ];
 
-const Service = () => (
+const Role = () => (
   <MenuLayout>
     <div style={{ margin: "10px" }}>
       <div
@@ -96,4 +96,4 @@ const Service = () => (
     </div>
   </MenuLayout>
 );
-export default Service;
+export default Role;

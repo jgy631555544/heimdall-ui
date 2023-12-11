@@ -5,8 +5,10 @@ import MenuLayout from "@/layout/menuLayout";
 import { useRouter } from "next/navigation";
 const { TabPane } = Tabs;
 import { LeftOutlined } from "@ant-design/icons";
+import Ingress from "@/app/network/ingress/page";
+import Service from "@/app/network/service/page";
 
-const Service = () => {
+const Network = () => {
   const router = useRouter();
 
   const goBack = () => {
@@ -20,18 +22,14 @@ const Service = () => {
         </Button>
         <Tabs defaultActiveKey="1">
           <TabPane tab="Service" key="1">
-            <List
-            // List properties and data for Service
-            />
+            <Service />
           </TabPane>
           <TabPane tab="Ingress" key="2">
-            <List
-            // List properties and data for Ingress
-            />
+            <Ingress />
           </TabPane>
         </Tabs>
       </div>
     </MenuLayout>
   );
 };
-export default Service;
+export default Network;
