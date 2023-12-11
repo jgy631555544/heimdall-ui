@@ -1,8 +1,8 @@
-import { Button, Input, Table } from "antd";
+import { Button, Table } from "antd";
 import React from "react";
 import { ColumnsType } from "antd/es/table";
-import Link from "next/link";
-interface ruleType {}
+import ServiceConfig from "@/app/network/ingress/components/serviceConfig";
+
 interface DataType {
   name: string;
   gatewayType: string;
@@ -76,49 +76,70 @@ const data: DataType[] = [
   },
 ];
 
-const columns: ColumnsType<DataType> = [
-  {
-    title: "名称",
-    dataIndex: "name",
-    render: (text: string) => <div>{text}</div>,
-  },
-  {
-    title: "网关类型",
-    dataIndex: "gatewayType",
-    render: (text: string) => <div>{text}</div>,
-  },
-  {
-    title: "规则",
-    dataIndex: "rules",
-    render: (rules: string[]) => {
-      return (
-        <>
-          {rules.map((text) => (
-            <div>{text}</div>
-          ))}
-        </>
-      );
+const Ingress = () => {
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    console.log("点击确定");
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    console.log("点击取消");
+    setIsModalVisible(false);
+  };
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "名称",
+      dataIndex: "name",
+      render: (text: string) => <div>{text}</div>,
     },
-  },
-  {
-    title: "端点",
-    dataIndex: "endpoint",
-    render: (text: string) => <div>{text}</div>,
-  },
-  {
-    title: "创建时间",
-    dataIndex: "createdAt",
-    render: (text: string) => <div>{text}</div>,
-  },
-  {
-    title: "操作",
-    key: "action",
-    render: () => <Button>更新</Button>,
-  },
-];
-const Ingress = () => (
-  <div style={{ margin: "10px" }}>
-    <Table pagination={false} columns={columns} dataSource={data} />
-  </div>
-);
+    {
+      title: "网关类型",
+      dataIndex: "gatewayType",
+      render: (text: string) => <div>{text}</div>,
+    },
+    {
+      title: "规则",
+      dataIndex: "rules",
+      render: (rules: string[]) => {
+        return (
+          <>
+            {rules.map((text, index) => (
+              <div key={index}>{text}</div>
+            ))}
+          </>
+        );
+      },
+    },
+    {
+      title: "端点",
+      dataIndex: "endpoint",
+      render: (text: string) => <div>{text}</div>,
+    },
+    {
+      title: "创建时间",
+      dataIndex: "createdAt",
+      render: (text: string) => <div>{text}</div>,
+    },
+    {
+      title: "操作",
+      key: "action",
+      render: () => <Button onClick={showModal}>更新</Button>,
+    },
+  ];
+  return (
+    <div style={{ margin: "10px" }}>
+      <Table pagination={false} columns={columns} dataSource={data} />
+      <ServiceConfig
+        isVisible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      />
+    </div>
+  );
+};
 export default Ingress;
